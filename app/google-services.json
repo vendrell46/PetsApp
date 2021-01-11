@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "205629431815",
+    "firebase_url": "https://my-pets-to-do-list.firebaseio.com",
+    "project_id": "my-pets-to-do-list",
+    "storage_bucket": "my-pets-to-do-list.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205629431815:android:5e36eb864e55f02db74aa2",
+        "android_client_info": {
+          "package_name": "com.carlos.myapps.petsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205629431815-veh1jdbvp33m8drqkk1di7oeuvfho31m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhap_ub4_-lmsYPF4U15Gpgbve6ORjQJY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205629431815-veh1jdbvp33m8drqkk1di7oeuvfho31m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
