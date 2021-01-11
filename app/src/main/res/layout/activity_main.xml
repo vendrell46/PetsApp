@@ -16,6 +16,12 @@
         tools:listitem="@layout/row_task"/>
 
     <Button
+        android:id="@+id/add_task_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add" />
+
+    <Button
         android:id="@+id/update_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 package com.carlos.myapps.petsapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,8 +20,19 @@ class MainActivity : AppCompatActivity() {
         updateBtn.setOnClickListener {
             update()
         }
+
+        val addBtn = findViewById<Button>(R.id.add_task_btn)
+        addBtn.setOnClickListener {
+            add()
+        }
+
         val recyclerView = findViewById<RecyclerView>(R.id.task_list)
         recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun add() {
+        val intent = Intent(this, AddActivity::class.java)
+        startActivity(intent)
     }
 
     private fun update() {
