@@ -36,14 +36,36 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.task_list)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        update()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val taskData = data?.extras?.getParcelable<Task>(TASK_KEY)
-            taskAddedMessage(taskData)
+            addTaskToDb(taskData)
         }
+    }
+
+    private fun addTaskToDb(taskData: Task?) {
+        val db = Firebase.firestore
+
+        val data = hashMapOf(
+            "name" to taskData?.name,
+            "description" to taskData?.description,
+            "complete" to taskData?.complete
+        )
+
+        db.collection("checklist")
+            .add(data)
+            .addOnSuccessListener {
+                taskAddedMessage(taskData)
+                update()
+            }
+            .addOnFailureListener { e ->
+                Log.w("TAG", "Error adding document", e)
+            }
     }
 
     private fun add() {
