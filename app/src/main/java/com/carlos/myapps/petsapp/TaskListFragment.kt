@@ -1,7 +1,5 @@
 package com.carlos.myapps.petsapp
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,7 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.SetOptions
@@ -50,41 +49,11 @@ class TaskListFragment : Fragment() {
         update()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val taskData = data?.extras?.getParcelable<Task>(AddActivity.TASK_KEY)
-            addTaskToDb(taskData)
-        }
-    }
-
-    private fun addTaskToDb(taskData: Task?) {
-        val db = Firebase.firestore
-
-        val data = hashMapOf(
-            "name" to taskData?.name,
-            "description" to taskData?.description,
-            "complete" to taskData?.complete
-        )
-
-        db.collection("checklist")
-            .add(data)
-            .addOnSuccessListener {
-                taskAddedMessage(taskData)
-                update()
-            }
-            .addOnFailureListener { e ->
-                Log.w("TAG", "Error adding document", e)
-            }
-    }
-
     private fun add() {
-        val intent = Intent(requireContext(), AddActivity::class.java)
-        startActivityForResult(intent, ADD_REQUEST_CODE)
-    }
-
-    private fun taskAddedMessage(taskData: Task?) {
-        Toast.makeText(requireContext(), taskData?.name, Toast.LENGTH_SHORT).show()
+        parentFragmentManager.commit {
+            replace<AddFragment>(R.id.fragment_container_view)
+            addToBackStack(null)
+        }
     }
 
     private fun update() {
