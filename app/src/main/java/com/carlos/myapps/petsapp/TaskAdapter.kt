@@ -17,6 +17,7 @@ class TaskAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<TaskA
     }
 
     var checkListener: ((Task, Boolean) -> Unit)? = null
+    var clickListener: ((Task) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -32,6 +33,9 @@ class TaskAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<TaskA
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = taskList[position]
         holder.taskName.text = task.name
+        holder.taskName.setOnClickListener {
+            clickListener?.invoke(task)
+        }
         holder.checkBox.isChecked = task.complete
         holder.checkBox.setOnCheckedChangeListener { _, checked ->
             checkListener?.invoke(task, checked)

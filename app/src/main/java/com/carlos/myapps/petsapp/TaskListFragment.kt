@@ -11,16 +11,13 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.carlos.myapps.petsapp.EditFragment.Companion.TASK_ID_KEY
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
 class TaskListFragment : Fragment() {
-
-    companion object {
-        private const val ADD_REQUEST_CODE = 2
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,6 +79,18 @@ class TaskListFragment : Fragment() {
                                 "complete" to checked
                             ), SetOptions.merge()
                         )
+                }
+
+                adapter.clickListener = { task ->
+                    val fragment = EditFragment()
+                    val bundle = Bundle()
+                    bundle.putString(TASK_ID_KEY, task.id)
+                    fragment.arguments = bundle
+
+                    parentFragmentManager.commit {
+                        replace(R.id.fragment_container_view, fragment)
+                        addToBackStack(null)
+                    }
                 }
                 recyclerView.adapter = adapter
             }
